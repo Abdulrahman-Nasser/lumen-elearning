@@ -2,7 +2,7 @@
 
 
 lumen elearning api this app provie us with api for questions and answers 
-there are 3 middleware : 
+there are 3 middlewares : 
 1) auth 
 2) x-api-key
 3) IPwhiteList
