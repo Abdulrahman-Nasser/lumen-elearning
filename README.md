@@ -12,7 +12,7 @@ there are 3 middleware :
 1) use composer update to update vendor files
 2) connect the database ( questions-online)
 3) use php artisan migrate command to migrate all models to database
-4) use php -S localhost:8000 -t public to run lumen php server
+4) use (php -S localhost:8000 -t public) to run lumen php server
 
 ## Documentation
 
