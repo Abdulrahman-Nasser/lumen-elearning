@@ -41,8 +41,8 @@ class AuthController extends Controller
     {
         // Use the Validator facade for validation
         $validator = Validator::make($request->all(), [
-            'email' => 'required',
-            'password' => "required|max:8"
+            'email' => 'required|email',
+            'password' => 'required|max:8'
         ]);
 
         // Check if the validation fails
@@ -54,15 +54,18 @@ class AuthController extends Controller
         }
 
         $user = User::whereEmail($request->email)->first();
+
         if (!is_null($user) && Hash::check($request->password, $user->password)) {
+            if (empty($user->api_key)) {
+                $user->api_key = str()->random(100);
+            }
             $user->api_token = str()->random(80);
-            $user->api_key = str()->random(100);
             $user->save();
 
             return response()->json([
-                "status" => "success",
+                'status' => 'success',
                 'token' => $user->api_token,
-                "api_key" => $user->api_key,
+                'api_key' => $user->api_key,
                 'message' => 'Logged in successfully'
             ])->header('Authorization', 'Bearer ' . $user->api_token);
 
@@ -73,4 +76,8 @@ class AuthController extends Controller
             ]);
         }
     }
+
+
+
+
 }

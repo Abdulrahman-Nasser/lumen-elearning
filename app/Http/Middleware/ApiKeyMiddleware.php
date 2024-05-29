@@ -11,7 +11,7 @@ class ApiKeyMiddleware
         $apiKey = $request->header('x-api-key');
 
         if (!$this->isValidApiKey($apiKey)) {
-            return response()->json(['error' => 'api key not valid' ." ". $apiKey], 401);
+            return response()->json(['error' => 'api key not valid'], 401);
         }
 
         return $next($request);

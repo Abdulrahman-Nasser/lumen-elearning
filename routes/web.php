@@ -23,12 +23,13 @@ $router->post('login', 'AuthController@login');
 $router->post('register', 'AuthController@store');
 
 $router->group(['prefix' => 'api'], function () use ($router) {
-    $router->group(['middleware' => ['auth', 'token', 'api-key' , 'ip-whiteList']], function () use ($router) {
+    $router->group(['middleware' => ['auth', 'api-key', 'ip-whiteList']], function () use ($router) {
         $router->get('questions', 'QuestionController@index');
         $router->post('questions', 'QuestionController@store');
         $router->get('questions/{id}', 'QuestionController@show');
         $router->put('questions/{id}', 'QuestionController@update');
         $router->delete('questions/{id}', 'QuestionController@destroy');
+
     });
 
     $router->get('/ban-user/{id}', 'UserController@ban');

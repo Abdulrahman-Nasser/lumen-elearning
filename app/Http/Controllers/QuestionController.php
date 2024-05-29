@@ -27,8 +27,12 @@ class QuestionController extends Controller
 
     public function show($id)
     {
-        $question = Question::findOrFail($id);
-        return response()->json($question);
+        $question = Question::find($id);
+        if ($question) {
+            return response()->json($question);
+        } else {
+            return response()->json(['message' => 'Question not found'], 404);
+        }
     }
 
     public function update(Request $request, $id)
@@ -36,18 +40,26 @@ class QuestionController extends Controller
         $this->validate($request, [
             'type' => 'required',
             'question' => 'required',
-            'correct_answer' => 'required',
+            'model_answer' => 'required',
         ]);
 
-        $question = Question::findOrFail($id);
-        $question->update($request->all());
-        return response()->json($question, 200);
+        $question = Question::find($id);
+        if ($question) {
+            $question->update($request->all());
+            return response()->json($question, 200);
+        } else {
+            return response()->json(['message' => 'Question not found'], 404);
+        }
     }
 
     public function destroy($id)
     {
-        $question = Question::findOrFail($id);
-        $question->delete();
-        return response()->json(null, 204);
+        $question = Question::find($id);
+        if ($question) {
+            $question->delete();
+            return response()->json(['message' => 'Question deleted'], 204);
+        } else {
+            return response()->json(['message' => 'Question not found'], 404);
+        }
     }
 }

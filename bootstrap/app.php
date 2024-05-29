@@ -82,7 +82,6 @@ $app->configure('app');
 
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
-    'token' => \App\Http\Middleware\TokenMiddleware::class,
     'api-key' => \App\Http\Middleware\ApiKeyMiddleware::class,
     'ip-whiteList' => \App\Http\Middleware\IpWhitelistMiddleware::class,
 ]);
